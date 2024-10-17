@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Add this CSS to your plugin's styles */
 .my-plugin-context-menu {
     background-color: #2c2c2e; /* Dark background */
@@ -16,3 +17,13 @@
     background-color: #3a3a3c; /* Darker background on hover */
     cursor: pointer; /* Pointer cursor on hover */
 }
+=======
+/*
+
+This CSS file will be included with your plugin, and
+available in the app when your plugin is enabled.
+
+If your plugin does not need CSS, delete this file.
+
+*/
+>>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
