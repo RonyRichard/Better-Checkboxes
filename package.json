@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
 	"name": "better-checkboxes",
 	"version": "1.0.0",
 	"description": "Better Checkboxes for Obsidian",
-=======
-	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

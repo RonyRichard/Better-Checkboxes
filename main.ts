@@ -1,17 +1,14 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-// Remember to rename these classes and interfaces!
-
 interface MyPluginSettings {
 	mySetting: string;
-<<<<<<< HEAD
 	checkboxOptions: {
-		[key: string]: boolean; // To hold the enabled/disabled state for each option
+		[key: string]: boolean;
 	};
 	displayLabels: {
-		[key: string]: string; // To hold the descriptive labels for display
+		[key: string]: string;
 	};
-	displayOption: 'text' | 'emoji' | 'both'; // New setting for display options
+	displayOption: 'text' | 'emoji' | 'both';
 }
 
 const DEFAULT_SETTINGS: MyPluginSettings = {
@@ -60,15 +57,8 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 		'/': 'Greyed Out Box',
 		'~': 'Yellow Checkmark for Half Completion',
 	},
-	displayOption: 'emoji', // Default display option to just emojis
+	displayOption: 'emoji',
 };
-=======
-}
-
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
-}
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
 
 export default class MyPlugin extends Plugin {
 	settings: MyPluginSettings;
@@ -76,19 +66,14 @@ export default class MyPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
 			new Notice('This is a notice!');
 		});
-		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setText('Status Bar Text');
 
-		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: 'open-sample-modal-simple',
 			name: 'Open sample modal (simple)',
@@ -96,11 +81,7 @@ export default class MyPlugin extends Plugin {
 				new SampleModal(this.app).open();
 			}
 		});
-<<<<<<< HEAD
 
-=======
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
-		// This adds an editor command that can perform some operation on the current editor instance
 		this.addCommand({
 			id: 'sample-editor-command',
 			name: 'Sample editor command',
@@ -109,61 +90,33 @@ export default class MyPlugin extends Plugin {
 				editor.replaceSelection('Sample Editor Command');
 			}
 		});
-<<<<<<< HEAD
 
-=======
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
 			id: 'open-sample-modal-complex',
 			name: 'Open sample modal (complex)',
 			checkCallback: (checking: boolean) => {
-				// Conditions to check
 				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
 					if (!checking) {
 						new SampleModal(this.app).open();
 					}
-
-					// This command will only show up in Command Palette when the check function returns true
 					return true;
 				}
 			}
 		});
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SampleSettingTab(this.app, this));
 
-<<<<<<< HEAD
-		// Register LALT click event on checkboxes
 		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
 			const target = evt.target as HTMLElement;
-			// Check if the left Alt key is pressed and the target is a checkbox
 			if (evt.altKey && target.matches('input[type="checkbox"]')) {
-				evt.preventDefault(); // Prevent the default action
+				evt.preventDefault();
 				this.showCheckboxOptionsMenu(evt.clientX, evt.clientY, target);
 			}
 		});
 	}
 
 	onunload() {}
-=======
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
-	}
-
-	onunload() {
-
-	}
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
 
 	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
@@ -172,34 +125,28 @@ export default class MyPlugin extends Plugin {
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
-<<<<<<< HEAD
 
-	// Updated method to show the dropdown menu with visual representations
 	showCheckboxOptionsMenu(x: number, y: number, checkbox: HTMLElement) {
-		// Rearranged options for better user-friendliness in the dropdown menu
 		const options = [
-			
-			{ text: '- [-]', display: '❌' }, // Red X
-			{ text: '- [~]', display: '🌗' },  // Yellow Checkmark for Half Completion
-			{ text: '- [/]', display: '🗒️' }, // Greyed Out Box
-			{ text: '- [!]', display: '⚠️' }, // Exclaimation Mark
-			{ text: '- [?]', display: '❓' }, // Question Mark
-			{ text: '- [i]', display: '💡' }, // Information
-			{ text: '- [p]', display: '👍' }, // Thumbs Up
-			{ text: '- [c]', display: '👎' }, // Thumbs Down
-			{ text: '- [f]', display: '🔥' }, // Fire
-			{ text: '- [u]', display: '📈' }, // Upwards Trend Arrow
-			{ text: '- [d]', display: '📉' }, // Downwards Trend Arrow
-			{ text: '- [b]', display: '🔖' }, // Bookmark
-			{ text: '- ["]', display: '💬' }, // Quotation Mark
-			{ text: '- [k]', display: '🔑' }, // Key
-			{ text: '- [l]', display: '📍' }, // Location Pin
-			{ text: '- [n]', display: '📌' }, // Thumbtack
-			{ text: '- [w]', display: '🎂' }, // Birthday Cake
-			{ text: '- [<]', display: '📅' }, // Calendar
-			{ text: '- [>]', display: '➡️' }, // Curved Arrow Pointing Right
-			
-			
+			{ text: '- [-]', display: '❌' },
+			{ text: '- [~]', display: '🌗' },
+			{ text: '- [/]', display: '🗒️' },
+			{ text: '- [!]', display: '⚠️' },
+			{ text: '- [?]', display: '❓' },
+			{ text: '- [i]', display: '💡' },
+			{ text: '- [p]', display: '👍' },
+			{ text: '- [c]', display: '👎' },
+			{ text: '- [f]', display: '🔥' },
+			{ text: '- [u]', display: '📈' },
+			{ text: '- [d]', display: '📉' },
+			{ text: '- [b]', display: '🔖' },
+			{ text: '- ["]', display: '💬' },
+			{ text: '- [k]', display: '🔑' },
+			{ text: '- [l]', display: '📍' },
+			{ text: '- [n]', display: '📌' },
+			{ text: '- [w]', display: '🎂' },
+			{ text: '- [<]', display: '📅' },
+			{ text: '- [>]', display: '➡️' },
 		];
 
 		const menu = document.createElement('div');
@@ -208,54 +155,49 @@ export default class MyPlugin extends Plugin {
 		menu.style.left = `${x}px`;
 		menu.style.top = `${y}px`;
 		menu.style.zIndex = '1000';
-		menu.style.maxHeight = '200px'; // Limit the height of the dropdown
-		menu.style.overflowY = 'auto'; // Enable scrolling if content exceeds max height
+		menu.style.maxHeight = '200px';
+		menu.style.overflowY = 'auto';
 		menu.style.display = 'grid';
-		menu.style.gridTemplateColumns = `repeat(3, 1fr)`; // Default to 3 columns
-		menu.style.gap = '5px'; // Space between items
+		menu.style.gridTemplateColumns = `repeat(3, 1fr)`;
+		menu.style.gap = '5px';
 
-		// Show all options except individual numbers if automatic numbers are enabled
 		options.forEach(option => {
-			// Check if the option is enabled
 			if (this.settings.checkboxOptions[option.text.charAt(3)]) {
 				const item = document.createElement('div');
-				
-				// Determine what to display based on the user's choice
 				let displayText = '';
 				if (this.settings.displayOption === 'text') {
-					displayText = option.text; // Show only text
+					displayText = option.text;
 				} else if (this.settings.displayOption === 'emoji') {
-					displayText = option.display; // Show only emoji
+					displayText = option.display;
 				} else {
-					displayText = `${option.display} ${option.text}`; // Show both
+					displayText = `${option.display} ${option.text}`;
 				}
 
-				item.textContent = displayText; // Set the display text
+				item.textContent = displayText;
 				item.style.padding = '10px';
 				item.style.cursor = 'pointer';
-				item.className = 'menu-item'; // Add a class for styling
+				item.className = 'menu-item';
 				item.addEventListener('click', () => {
 					const editor = this.app.workspace.getActiveViewOfType(MarkdownView)?.editor;
 					if (editor) {
-						const cursor = editor.getCursor(); // Get the current cursor position
-						const lineNumber = cursor.line; // Get the current line number
-						const lineText = editor.getLine(lineNumber); // Get the current line text
+						const cursor = editor.getCursor();
+						const lineNumber = cursor.line;
+						const lineText = editor.getLine(lineNumber);
 
 						if (lineText) {
-							const updatedText = option.text; // The new text to replace the checkbox
-							const updatedLineText = lineText.replace(/- \[.\]/, updatedText); // Replace the checkbox
-								editor.setLine(lineNumber, updatedLineText); // Replace the line text
+							const updatedText = option.text;
+							const updatedLineText = lineText.replace(/- \[.\]/, updatedText);
+							editor.setLine(lineNumber, updatedLineText);
 						}
 					}
-					menu.remove(); // Remove the menu after selection
+					menu.remove();
 				});
-				menu.appendChild(item); // Append item directly to the menu
+				menu.appendChild(item);
 			}
 		});
 
 		document.body.appendChild(menu);
 
-		// Remove the menu when clicking elsewhere
 		const removeMenu = () => {
 			menu.remove();
 			document.removeEventListener('click', removeMenu);
@@ -264,25 +206,21 @@ export default class MyPlugin extends Plugin {
 	}
 }
 
-=======
-}
-
 class SampleModal extends Modal {
 	constructor(app: App) {
 		super(app);
 	}
 
 	onOpen() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.setText('Woah!');
 	}
 
 	onClose() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.empty();
 	}
 }
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
 
 class SampleSettingTab extends PluginSettingTab {
 	plugin: MyPlugin;
@@ -293,23 +231,19 @@ class SampleSettingTab extends PluginSettingTab {
 	}
 
 	display(): void {
-<<<<<<< HEAD
 		const { containerEl } = this;
 
 		containerEl.empty();
 
-		// Add a section for enabled boxes
 		const enabledBoxesContainer = containerEl.createDiv();
 		const enabledBoxesHeader = enabledBoxesContainer.createEl('h2', { text: 'Enabled Boxes' });
 		const enabledBoxesContent = enabledBoxesContainer.createDiv();
-		enabledBoxesContent.style.display = 'none'; // Initially hidden
+		enabledBoxesContent.style.display = 'none';
 
 		enabledBoxesHeader.addEventListener('click', () => {
-			// Toggle visibility of the content
 			enabledBoxesContent.style.display = enabledBoxesContent.style.display === 'none' ? 'block' : 'none';
 		});
 
-		// Rearranged options for better user-friendliness
 		const options = [
 			{ key: '-', label: 'Red X' },
 			{ key: 'x', label: 'Cross Out' },
@@ -324,7 +258,7 @@ class SampleSettingTab extends PluginSettingTab {
 			{ key: 'l', label: 'Location Pin' },
 			{ key: 'n', label: 'Thumbtack' },
 			{ key: 'w', label: 'Birthday Cake' },
-			{ key: '!', label: 'Exclaimation Mark' },
+			{ key: '!', label: 'Exclamation Mark' },
 			{ key: '"', label: 'Quotation Mark' },
 			{ key: '<', label: 'Calendar' },
 			{ key: '>', label: 'Curved Arrow Pointing Right' },
@@ -333,10 +267,9 @@ class SampleSettingTab extends PluginSettingTab {
 			{ key: '~', label: 'Yellow Checkmark for Half Completion' },
 		];
 
-		// Add checkbox options using the display labels
 		options.forEach(option => {
-			const setting = new Setting(enabledBoxesContent)
-				.setName(`Enable - ${this.plugin.settings.displayLabels[option.key]}`) // Use descriptive label
+			new Setting(enabledBoxesContent)
+				.setName(`Enable - ${this.plugin.settings.displayLabels[option.key]}`)
 				.addToggle(toggle => toggle
 					.setValue(this.plugin.settings.checkboxOptions[option.key])
 					.onChange(async (value) => {
@@ -345,11 +278,10 @@ class SampleSettingTab extends PluginSettingTab {
 					}));
 		});
 
-		// Add Display Options setting
 		new Setting(containerEl)
 			.setName('Display Options')
 			.setDesc('Choose how to display the options in the dropdown menu.')
-			.addDropdown(dropdown => 
+			.addDropdown(dropdown =>
 				dropdown
 					.addOption('text', 'Text')
 					.addOption('emoji', 'Emoji')
@@ -359,21 +291,5 @@ class SampleSettingTab extends PluginSettingTab {
 						this.plugin.settings.displayOption = value as 'text' | 'emoji' | 'both';
 						await this.plugin.saveSettings();
 					}));
-=======
-		const {containerEl} = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
-			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
-				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
-					await this.plugin.saveSettings();
-				}));
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
 	}
 }

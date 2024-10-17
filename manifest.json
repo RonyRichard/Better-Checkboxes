@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"id": "better-checkboxes",
 	"name": "Better Checkboxes",
 	"version": "1.0.0",
@@ -9,15 +8,4 @@
 	"authorUrl": "https://github.com/RonyRichard",
 	"fundingUrl": "https://github.com/RonyRichard",
 	"isDesktopOnly": true
-=======
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
->>>>>>> 63e762e065d6b39984d722716ecb08dfe848add5
 }
